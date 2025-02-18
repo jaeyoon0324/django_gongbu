@@ -1,22 +1,35 @@
 {% load static %}
-
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#sidebar h2").click(function(){
+                $("#sidebar p").slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
 
-<html>
-    <head>
-        <title>
-            {% block title %}{% endblock %}
-        </title>
-        <link href="{% static 'css/blog.css' %}" rel="stylesheet">
-    </head>
-    <body>
-        <div id="content">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <div id="sidebar">
-            <h2>My Blog</h2>
-            <p>This is my blog.</p>
-        </div>
-    </body>
+    <nav>
+        <ul>
+            <li><a href="/admin">admin</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 My Blog</p>
+    </footer>
+</body>
 </html>

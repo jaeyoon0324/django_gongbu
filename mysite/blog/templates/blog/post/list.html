@@ -1,22 +1,23 @@
 {% extends "blog/base.html" %}
-{% block title %} my blog {% endblock %}
+{% block title %}My Blog{% endblock %}
 
 {% block content %}
+<h1>My Blog - Posts List</h1>
+<div class="post-list">
+    {% for post in posts %}
+    <div class="post-item">
+        <h2><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+        <p class="post-meta">Published {{ post.publish }} by {{ post.author }}</p>
+        <div class="post-excerpt">{{ post.body|truncatewords:30|linebreaks }}</div>
+    </div>
+    {% endfor %}
+</div>
 
-<h1> My Blog </h1>
-
-{%for post in posts %}
-<h2>
-    <a href = "{% url 'blog:post_detail' post.id %}">
-        {{ post.title }}
-    </a>
-</h2>
-
-<p class = "date">
-    Published {{ post.publish }} by {{ post.author}}
-</p>
-
-{{ post.body|truncatewords:30|linebreaks}}
-{%endfor%}
-
-{%endblock%}
+<style>
+.post-list { padding: 20px; }
+.post-item { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-left: 5px solid #3498db; border-radius: 5px; transition: transform 0.2s; }
+.post-item:hover { transform: scale(1.02); }
+.post-meta { color: #555; font-size: 13px; margin-bottom: 10px; }
+.post-excerpt { font-size: 14px; color: #333; }
+</style>
+{% endblock %}
